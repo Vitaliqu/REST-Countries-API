@@ -1,8 +1,32 @@
 let list = [];
-let box = document.getElementsByClassName("application")
+let box = document.querySelector(".application")
 let clicked = false
-document.getElementsByClassName("filter")[0].addEventListener("click", (event) => {
-    console.log(event.target)
+const searchBar = document.querySelector('.search-bar')
+const regionCheckbox = document.querySelectorAll(".region-checkbox")
+document.querySelector(".themeswitch").addEventListener("change", element => {
+    if(document.querySelector(".themeswitch").checked) document.body.classList.add("dark-theme")
+    else document.body.classList.remove("dark-theme")
+})
+
+function clearselection() {
+    regionCheckbox.forEach(checkbox => {
+        checkbox.checked = false;
+        checkbox.parentElement.classList.remove("region-checked");
+    })
+}
+
+searchBar.addEventListener('keypress', element => {
+    if (element.key === 'Enter') {
+        clearselection()
+        render(list.filter(element => element.name.toLowerCase().includes(searchBar.value.toLowerCase())))
+    }
+})
+searchBar.addEventListener('blur', () => {
+    clearselection()
+    render(list.filter(element => element.name.toLowerCase().includes(searchBar.value.toLowerCase())))
+
+});
+document.querySelector(".filter").addEventListener("click", (event) => {
     if (event.target.matches(".filter, .dropdown-text, .arrow")) {
         if (!clicked) {
             document.body.classList.add("show-dropdown");
@@ -13,6 +37,27 @@ document.getElementsByClassName("filter")[0].addEventListener("click", (event) =
         }
     }
 })
+regionCheckbox.forEach(element => element.addEventListener("change", () => {
+    if (element.checked) {
+        clearselection()
+        element.checked = true;
+        element.parentElement.classList.add("region-checked");
+        document.body.classList.remove("show-dropdown");
+        clicked = false;
+        searchBar.value = '';
+        render(list.filter(country => {
+            let countryRegion = element.parentElement.textContent;
+            countryRegion === "America" ? countryRegion = "Americas" : null;
+            return country.region === countryRegion ? country.region : null;
+        }))
+
+    } else {
+        element.parentElement.classList.remove("region-checked")
+        document.body.classList.remove("show-dropdown");
+        clicked = false
+        render(list)
+    }
+}))
 
 class CountryCard {
     constructor(item) {
@@ -31,8 +76,6 @@ class CountryCard {
             <p class="country-capital">Capital: <strong>${this.capital}</strong></p>
         </div>`
     }
-
-
 }
 
 async function insert() {
@@ -40,9 +83,9 @@ async function insert() {
     data.forEach(element => list.push(new CountryCard(element)))
 }
 
-function render() {
-
-    list.forEach(element => box[0].innerHTML += (element.card))
+function render(array) {
+    box.innerHTML = null
+    array.forEach(element => box.innerHTML += (element.card))
 }
 
 function saveData() {
@@ -51,4 +94,4 @@ function saveData() {
     localStorage.setItem('myBook', htmlContents);
 }
 
-insert().then(render)
+insert().then(() => render(list))
