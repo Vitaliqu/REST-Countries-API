@@ -125,6 +125,7 @@ body, html {
     display: flex;
     align-items: center;
     margin: 0;
+    user-select: none;
     height: 0;
     opacity: 0;
     padding-left: 1rem;
