@@ -79,7 +79,6 @@ regionCheckbox.forEach(element => element.addEventListener("change", () => {
     }
 }))
 
-
 async function insert() {
     return await fetch('https://restcountries.com/v3.1/all').then(data => data.json())
 }
@@ -99,6 +98,7 @@ function saveData() {
     const htmlContents = Array.from(elements).map(element => element.innerHTML).join("\n");
     localStorage.setItem('regionAll', htmlContents);
 }
+
 if (localStorage.getItem('regionAll')) box.innerHTML = localStorage.getItem('regionAll')
 else insert().then(data => render(formater(data)))
 
