@@ -1,8 +1,25 @@
-let list = [];
 let box = document.querySelector(".application")
 const searchBar = document.querySelector('.search-bar')
 const regionCheckbox = document.querySelectorAll(".region-checkbox");
-let isRunning = false;
+
+class CountryCard {
+    constructor(item) {
+        let {name, population, region, capital, flags} = item;
+        this.name = name.common;
+        this.population = new Intl.NumberFormat("en").format(population);
+        this.region = region;
+        this.capital = capital;
+        this.flag = flags.svg;
+        this.card = `
+        <div class="country-card">
+            <img src=${this.flag}>
+            <p class="country-name">${this.name}</p>
+            <p class="country-population">Population: <strong>${this.population}</strong></p>
+            <p class="country-region">Region: <strong>${this.region}</strong></p>
+            <p class="country-capital">Capital: <strong>${this.capital}</strong></p>
+        </div>`
+    }
+}
 
 // Add theme switch event listener
 document.querySelector(".themeswitch").addEventListener("change", () => {
@@ -25,15 +42,13 @@ function clearselection() {
 searchBar.addEventListener('keypress', element => {
     if (element.key === 'Enter') {
         clearselection()
-        isRunning = true
-        render(list.filter(element => element.name.toLowerCase().includes(searchBar.value.toLowerCase()))).then()
+        insert().then(data => render(formater(data.filter(element => element.name.common.toLowerCase().includes(searchBar.value.toLowerCase())))))
     }
 })
 // add search event listener
 searchBar.addEventListener('blur', () => {
     clearselection()
-    render(list.filter(element => element.name.toLowerCase().includes(searchBar.value.toLowerCase()))).then()
-
+    insert().then(data => render(formater(data.filter(element => element.name.common.toLowerCase().includes(searchBar.value.toLowerCase())))))
 });
 
 // dropdown menu event listener
@@ -52,12 +67,11 @@ regionCheckbox.forEach(element => element.addEventListener("change", () => {
         element.parentElement.classList.add("region-checked");
         document.body.classList.remove("show-dropdown");
         searchBar.value = '';
-        render(list.filter(country => {
+        insert().then(data => render(formater(data.filter(country => {
             let countryRegion = element.parentElement.textContent;
             countryRegion === "America" ? countryRegion = "Americas" : null;
             return country.region === countryRegion ? country.region : null;
-        })).then()
-
+        }))))
     } else {
         element.parentElement.classList.remove("region-checked")
         document.body.classList.remove("show-dropdown");
@@ -65,41 +79,27 @@ regionCheckbox.forEach(element => element.addEventListener("change", () => {
     }
 }))
 
-class CountryCard {
-    constructor(item) {
-        let {name, population, region, capital, flags} = item;
-        this.name = name.common;
-        this.population = new Intl.NumberFormat("en").format(population);
-        this.region = region;
-        this.capital = capital;
-        this.flag = flags.svg;
-        this.card = `
-        <div class="country-card">
-            <img src=${this.flag}>
-            <p class="country-name">${this.name}</p>
-            <p class="country-population">Population: <strong>${this.population}</strong></p>
-            <p class="country-region">Region: <strong>${this.region}</strong></p>
-            <p class="country-capital">Capital: <strong>${this.capital}</strong></p>
-        </div>`
-    }
-}
 
 async function insert() {
-    const data = await fetch('https://restcountries.com/v3.1/all').then(data => data.json())
-    data.forEach(element => {
-        list.push(new CountryCard(element).card)
-    })
+    return await fetch('https://restcountries.com/v3.1/all').then(data => data.json())
+}
+
+function formater(data) {
+    return data.map(element => (new CountryCard(element).card))
 }
 
 async function render(array) {
-    if(array) box.innerHTML = array.join("\n");
-    else box.innerHTML = list.join("\n");
+    if (array) box.innerHTML = array.join("\n");
+    else insert().then(data => render(formater(data)))
+    saveData()
 }
 
 function saveData() {
     const elements = document.getElementsByClassName("application");
     const htmlContents = Array.from(elements).map(element => element.innerHTML).join("\n");
-    localStorage.setItem('myBook', htmlContents);
+    localStorage.setItem('regionAll', htmlContents);
 }
+if (localStorage.getItem('regionAll')) box.innerHTML = localStorage.getItem('regionAll')
+else insert().then(data => render(formater(data)))
 
-insert().then(() => render(list))
+localStorage.clear()
