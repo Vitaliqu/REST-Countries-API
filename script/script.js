@@ -1,13 +1,19 @@
 let list = [];
 let box = document.querySelector(".application")
-let clicked = false
 const searchBar = document.querySelector('.search-bar')
-const regionCheckbox = document.querySelectorAll(".region-checkbox")
-document.querySelector(".themeswitch").addEventListener("change", element => {
-    if(document.querySelector(".themeswitch").checked) document.body.classList.add("dark-theme")
-    else document.body.classList.remove("dark-theme")
-})
+const regionCheckbox = document.querySelectorAll(".region-checkbox");
+let isRunning = false;
 
+// Add theme switch event listener
+document.querySelector(".themeswitch").addEventListener("change", () => {
+        if (document.querySelector(".themeswitch").checked) {
+            document.body.classList.add("dark-theme");
+        } else
+            document.body.classList.remove("dark-theme")
+    }
+)
+
+// clear region selection
 function clearselection() {
     regionCheckbox.forEach(checkbox => {
         checkbox.checked = false;
@@ -15,47 +21,47 @@ function clearselection() {
     })
 }
 
+// add search event listener by pressing enter
 searchBar.addEventListener('keypress', element => {
     if (element.key === 'Enter') {
         clearselection()
-        render(list.filter(element => element.name.toLowerCase().includes(searchBar.value.toLowerCase())))
+        isRunning = true
+        render(list.filter(element => element.name.toLowerCase().includes(searchBar.value.toLowerCase()))).then()
     }
 })
+// add search event listener
 searchBar.addEventListener('blur', () => {
     clearselection()
-    render(list.filter(element => element.name.toLowerCase().includes(searchBar.value.toLowerCase())))
+    render(list.filter(element => element.name.toLowerCase().includes(searchBar.value.toLowerCase()))).then()
 
 });
-document.querySelector(".filter").addEventListener("click", (event) => {
-    if (event.target.matches(".filter, .dropdown-text, .arrow")) {
-        if (!clicked) {
-            document.body.classList.add("show-dropdown");
-            clicked = true;
-        } else {
-            document.body.classList.remove("show-dropdown");
-            clicked = false;
-        }
+
+// dropdown menu event listener
+document.querySelector(".filter-checkbox").addEventListener("change", () => {
+    if (document.querySelector(".filter-checkbox").checked) {
+        document.body.classList.add("show-dropdown");
+    } else {
+        document.body.classList.remove("show-dropdown");
     }
 })
+// add event listener for each region
 regionCheckbox.forEach(element => element.addEventListener("change", () => {
     if (element.checked) {
         clearselection()
         element.checked = true;
         element.parentElement.classList.add("region-checked");
         document.body.classList.remove("show-dropdown");
-        clicked = false;
         searchBar.value = '';
         render(list.filter(country => {
             let countryRegion = element.parentElement.textContent;
             countryRegion === "America" ? countryRegion = "Americas" : null;
             return country.region === countryRegion ? country.region : null;
-        }))
+        })).then()
 
     } else {
         element.parentElement.classList.remove("region-checked")
         document.body.classList.remove("show-dropdown");
-        clicked = false
-        render(list)
+        render()
     }
 }))
 
@@ -80,12 +86,14 @@ class CountryCard {
 
 async function insert() {
     const data = await fetch('https://restcountries.com/v3.1/all').then(data => data.json())
-    data.forEach(element => list.push(new CountryCard(element)))
+    data.forEach(element => {
+        list.push(new CountryCard(element).card)
+    })
 }
 
-function render(array) {
-    box.innerHTML = null
-    array.forEach(element => box.innerHTML += (element.card))
+async function render(array) {
+    if(array) box.innerHTML = array.join("\n");
+    else box.innerHTML = list.join("\n");
 }
 
 function saveData() {
