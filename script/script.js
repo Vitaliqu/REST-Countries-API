@@ -102,4 +102,4 @@ function saveData() {
 if (localStorage.getItem('regionAll')) box.innerHTML = localStorage.getItem('regionAll')
 else insert().then(data => render(formater(data)))
 
-localStorage.clear()
+console.log(document)
