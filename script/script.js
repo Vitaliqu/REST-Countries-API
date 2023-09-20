@@ -8,15 +8,16 @@ class CountryCard {
         this.name = name.common;
         this.population = new Intl.NumberFormat("en").format(population);
         this.region = region;
-        this.capital = capital;
+        this.capital = capital
         this.flag = flags.svg;
+        console.log(capital)
         this.card = `
         <div class="country-card">
             <img src=${this.flag}>
             <p class="country-name">${this.name}</p>
             <p class="country-population">Population: <strong>${this.population}</strong></p>
             <p class="country-region">Region: <strong>${this.region}</strong></p>
-            <p class="country-capital">Capital: <strong>${this.capital}</strong></p>
+            <p class="country-capital">Capital: <strong>${this.capital !== undefined ? this.capital.join(", ") : "none"}</strong></p>
         </div>`
     }
 }
@@ -101,5 +102,4 @@ function saveData() {
 
 if (localStorage.getItem('regionAll')) box.innerHTML = localStorage.getItem('regionAll')
 else insert().then(data => render(formater(data)))
-
-console.log(document)
+localStorage.clear()

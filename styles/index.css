@@ -15,10 +15,6 @@ body, html {
 }
 
 
-body {
-    margin-top: clamp(6rem, 21vh, 12rem);
-}
-
 .header {
     font-weight: 700;
     position: fixed;
@@ -101,7 +97,7 @@ body {
     justify-content: space-between;
     align-items: center;
     display: flex;
-    width: 65%;
+    width: 62%;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     overflow: hidden;
@@ -235,21 +231,23 @@ body::-webkit-scrollbar-thumb {
 }
 
 .application {
+    margin-top: clamp(6rem, 21vh, 12rem);
     padding-bottom: 2rem;
-    scroll-behavior: smooth;
     width: 90%;
     display: grid;
-    justify-content: space-between;
+    column-gap: 4rem;
     row-gap: 4rem;
-    grid-template-columns: repeat(4, 16.5rem);
+    justify-content: space-between;
+    grid-template-columns: repeat(auto-fit, 14rem)
+
 }
 
 .country-card {
     transition: none;
     background-color: #fafafa;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    height: 20rem;
-    border-radius: 6px;
+    height: 18rem;
+    border-radius: 3px;
     overflow: hidden;
 }
 
@@ -259,23 +257,22 @@ body::-webkit-scrollbar-thumb {
 
 img {
     width: 100%;
-    height: 50%;
+    height: 46%;
     object-fit: cover;
 }
 
 .country-name {
-    margin-left: 2rem;
+    margin-left: 1rem;
     font-size: 18px;
     font-weight: 700;
 }
 
 .country-population, .country-region, .country-capital {
-    margin-left: 2rem;
+    margin-left: 1rem;
     font-weight: 600;
     font-size: 13px;
-    line-height: .5rem;
+    line-height: .8rem;
 }
-
 strong {
     font-weight: 200;
 }
@@ -377,22 +374,15 @@ strong {
 
 @media (max-width: 1200px) {
     .application {
-        grid-template-columns: repeat(3, 16.5rem);
     }
 }
 
 @media (max-width: 992px) {
     .application {
-        justify-content: space-around;
-
-        grid-template-columns: repeat(2, 16.5rem);
     }
 }
 
 @media (max-width: 768px) {
-    body {
-        margin-top: clamp(10rem, 28vh, 16rem);
-    }
     .header {
         min-height: 10rem;
         height: 28vh;
@@ -422,7 +412,8 @@ strong {
 
     .application {
         row-gap: 2rem;
-        grid-template-columns: repeat(1, 16.5rem);
+        justify-content: space-around;
+        margin-top: clamp(10rem, 28vh, 16rem);
     }
 
     .filter {
