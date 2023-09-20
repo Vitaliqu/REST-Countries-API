@@ -237,7 +237,7 @@ body::-webkit-scrollbar-thumb {
     display: grid;
     column-gap: 4rem;
     row-gap: 4rem;
-    justify-content: space-between;
+    justify-content: space-evenly;
     grid-template-columns: repeat(auto-fit, 14rem)
 
 }
@@ -412,7 +412,6 @@ strong {
 
     .application {
         row-gap: 2rem;
-        justify-content: space-around;
         margin-top: clamp(10rem, 28vh, 16rem);
     }
 
