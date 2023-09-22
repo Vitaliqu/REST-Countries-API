@@ -373,24 +373,15 @@ strong {
     }
 }
 
-@media (max-width: 1200px) {
-    .application {
-    }
-}
-
-@media (max-width: 992px) {
-    .application {
-    }
-}
 
 @media (max-width: 768px) {
     .header {
         min-height: 8rem;
-        height: 30vh;
+        height: 20vh;
         max-height: 16rem;
     }
     .top-panel {
-        height: clamp(2rem, 10vh, 4rem);
+        height: clamp(2rem, 7vh, 4rem);
 
     }
     .control-panel {
@@ -400,11 +391,11 @@ strong {
         flex-direction: column;
     }
     .search-container{
-        height: clamp(2rem, 7vh, 3rem);
+        height: clamp(2rem, 5vh, 3rem);
     }
     .filter {
         margin-left: 5%;
-        height: clamp(2rem, 7vh, 3rem);
+        height: clamp(2rem, 5vh, 3rem);
 
     }
 
@@ -420,7 +411,7 @@ strong {
         width: 12px;
     }
     .application {
-        margin-top: clamp(8rem, 30vh, 16rem);
+        margin-top: clamp(8rem, 20vh, 16rem);
         row-gap: 2rem;
     }
 
