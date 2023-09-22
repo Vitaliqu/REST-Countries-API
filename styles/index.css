@@ -14,8 +14,8 @@ body, html {
     background-color: hsl(0, 0%, 98%);
 }
 
-
 .header {
+    background-color: hsl(0, 0%, 98%);
     font-weight: 700;
     position: fixed;
     flex-direction: column;
@@ -23,9 +23,9 @@ body, html {
     justify-items: stretch;
     justify-content: stretch;
     font-size: 22px;
-    min-height: 6rem;
-    height: 21vh;
-    max-height: 16rem;
+    min-height: 5rem;
+    height: 22vh;
+    max-height: 12rem;
     left: 0;
     top: 0;
     right: 0;
@@ -43,7 +43,6 @@ body, html {
     align-items: center;
     width: 100%;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    z-index: 1;
 }
 
 .header-text {
@@ -51,11 +50,10 @@ body, html {
 }
 
 .control-panel {
-    flex: 2;
+    flex: 1;
     position: relative;
     background-color: hsl(0, 0%, 98%);
-    min-height: 4rem;
-    max-height: 8rem;
+    min-height: 2rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -93,11 +91,13 @@ body, html {
 
 .search-container {
     margin-left: 5%;
+    flex: 1;
+    margin-right: 2rem;
     background-color: white;
     justify-content: space-between;
     align-items: center;
+    height: clamp(2rem, 8vh, 3rem);
     display: flex;
-    width: 62%;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     overflow: hidden;
@@ -109,9 +109,10 @@ body, html {
     font-size: 12px;
     font-weight: 500;
     margin-left: 1.5rem;
+    padding: 0;
     border: none;
     outline: none;
-    height: 3rem;
+    height: 100%;
     width: 100%;
 }
 
@@ -128,8 +129,8 @@ body, html {
     display: flex;
     user-select: none;
     justify-content: space-between;
-    font-size: 14px;
-    height: 3rem;
+    font-size: 12px;
+    height: clamp(2rem, 8vh, 3rem);
     padding: 0 1rem;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
@@ -152,7 +153,8 @@ body, html {
     background-color: white;
     left: 0;
     min-height: 0;
-    top: 54px;
+    top: clamp(36px, 8vh, 54px);
+
     visibility: hidden;
     padding: 0;
     box-sizing: border-box;
@@ -229,17 +231,16 @@ body::-webkit-scrollbar-thumb {
     display: inline-block;
     padding: 3px;
 }
-
 .application {
-    margin-top: clamp(6rem, 21vh, 12rem);
+    margin-top: clamp(5rem, 22vh, 12rem);
     padding-bottom: 2rem;
+    scroll-behavior: smooth;
     width: 90%;
     display: grid;
-    column-gap: 4rem;
-    row-gap: 4rem;
     justify-content: space-evenly;
+    column-gap: 1rem;
+    row-gap: 4rem;
     grid-template-columns: repeat(auto-fit, 14rem)
-
 }
 
 .country-card {
@@ -384,18 +385,27 @@ strong {
 
 @media (max-width: 768px) {
     .header {
-        min-height: 10rem;
-        height: 28vh;
+        min-height: 8rem;
+        height: 30vh;
         max-height: 16rem;
     }
+    .top-panel {
+        height: clamp(2rem, 10vh, 4rem);
 
+    }
     .control-panel {
-        flex: 3;
+        flex: 2;
+        justify-content: space-around;
+        align-items: start;
         flex-direction: column;
-        justify-content: space-evenly;
-        align-items: flex-start;
-        min-height: 8rem;
-        max-height: 12rem;
+    }
+    .search-container{
+        height: clamp(2rem, 7vh, 3rem);
+    }
+    .filter {
+        margin-left: 5%;
+        height: clamp(2rem, 7vh, 3rem);
+
     }
 
     .header-text {
@@ -409,17 +419,13 @@ strong {
     .moon {
         width: 12px;
     }
-
     .application {
+        margin-top: clamp(8rem, 30vh, 16rem);
         row-gap: 2rem;
-        margin-top: clamp(10rem, 28vh, 16rem);
-    }
-
-    .filter {
-        margin-left: 5%;
     }
 
     .search-container {
+        flex: none;
         width: 90%;
     }
 
