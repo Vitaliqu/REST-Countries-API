@@ -15,7 +15,7 @@ body, html {
 }
 
 .header {
-    background-color: hsl(0, 0%, 98%);
+    transition: max-height 0.3s;
     font-weight: 700;
     position: fixed;
     flex-direction: column;
@@ -50,6 +50,7 @@ body, html {
 }
 
 .control-panel {
+    transition: background-color 0.2s, min-height 0.3s, flex 0.3s;
     flex: 1;
     position: relative;
     background-color: hsl(0, 0%, 98%);
@@ -88,8 +89,8 @@ body, html {
     width: 14px;
 }
 
-
 .search-container {
+    transition: height 0.3s;
     margin-left: 5%;
     flex: 1;
     margin-right: 2rem;
@@ -121,6 +122,7 @@ body, html {
 }
 
 .filter {
+    transition: height 0.3s, opacity 0.3s;
     margin-right: 5%;
     background-color: white;
     position: relative;
@@ -231,7 +233,9 @@ body::-webkit-scrollbar-thumb {
     display: inline-block;
     padding: 3px;
 }
+
 .application {
+    transition: margin-top 0.3s;
     margin-top: clamp(5rem, 22vh, 12rem);
     padding-bottom: 2rem;
     scroll-behavior: smooth;
@@ -247,7 +251,7 @@ body::-webkit-scrollbar-thumb {
     transition: none;
     background-color: #fafafa;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    height: 18rem;
+    height: 20rem;
     border-radius: 3px;
     overflow: hidden;
 }
@@ -274,6 +278,7 @@ img {
     font-size: 13px;
     line-height: .8rem;
 }
+
 strong {
     font-weight: 200;
 }
@@ -326,6 +331,11 @@ strong {
         color: white;
     }
 
+    .return-button {
+        color: white;
+        background-color: hsl(209, 23%, 22%);
+    }
+
     .search-container {
         background-color: hsl(209, 23%, 22%);
     }
@@ -336,6 +346,10 @@ strong {
 
     .moon {
         filter: invert(100%);
+    }
+
+    .card-description {
+        color: white;
     }
 
     .search-bar::placeholder {
@@ -373,6 +387,95 @@ strong {
     }
 }
 
+.open-country {
+    .header {
+        min-height: 2rem;
+        max-height: 4rem;
+    }
+
+    .control-panel {
+        flex: none;
+        min-height: 0;
+        height: 0;
+    }
+
+    .search-container {
+        height: 0;
+    }
+
+    .filter {
+        opacity: 0;
+        height: 0;
+
+    }
+
+    .application {
+        margin-top: clamp(3rem, 30vh, 8rem);
+        display: flex;
+    }
+
+    .application > .country-card {
+        display: none;
+    }
+}
+
+.opened-country {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.card-description {
+    width: 45%;
+}
+
+.card-container {
+    display: flex;
+    height: 50%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.full-size-image {
+    object-fit: scale-down;
+    width: auto;
+    max-width: 45%;
+    height: auto;
+    max-height: 100%;
+}
+
+.full-size-name {
+    font-weight: 700;
+    font-size: 32px;
+    margin: 0;
+}
+
+.return-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    color: black;
+    margin-bottom: clamp(1rem, 20vh, 4rem);
+    border-radius: 4px;
+    height: clamp(2rem, 20vh, 2.5rem);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    width: 7.5rem;
+}
+
+.parameters-container {
+    line-height: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.return-button:active {
+    opacity: 0.6;
+}
 
 @media (max-width: 768px) {
     .header {
@@ -380,19 +483,23 @@ strong {
         height: 20vh;
         max-height: 16rem;
     }
+
     .top-panel {
         height: clamp(2rem, 7vh, 4rem);
 
     }
+
     .control-panel {
         flex: 2;
         justify-content: space-around;
         align-items: start;
         flex-direction: column;
     }
-    .search-container{
+
+    .search-container {
         height: clamp(2rem, 5vh, 3rem);
     }
+
     .filter {
         margin-left: 5%;
         height: clamp(2rem, 5vh, 3rem);
@@ -410,6 +517,7 @@ strong {
     .moon {
         width: 12px;
     }
+
     .application {
         margin-top: clamp(8rem, 20vh, 16rem);
         row-gap: 2rem;
@@ -420,7 +528,37 @@ strong {
         width: 90%;
     }
 
+    .full-size-name {
+        margin-bottom: 1rem;
+    }
+
+    .card-description {
+        min-height: 400rem;
+    }
+
+    .parameters-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .card-description {
+        min-height: 100%;
+        height: 40%;
+    }
+
     .search-bar {
         width: 100%;
+    }
+
+    .full-size-image {
+        min-width: 20rem;
+        width: 100%;
+        max-width: 4rem;
     }
 }
