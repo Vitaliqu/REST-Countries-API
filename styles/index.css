@@ -442,6 +442,7 @@ strong {
     object-fit: scale-down;
     width: auto;
     max-width: 45%;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
     height: auto;
     max-height: 100%;
 }
