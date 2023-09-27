@@ -279,6 +279,7 @@ img {
     line-height: .8rem;
 }
 
+
 strong {
     font-weight: 200;
 }
@@ -332,6 +333,11 @@ strong {
     }
 
     .return-button {
+        color: white;
+        background-color: hsl(209, 23%, 22%);
+    }
+
+    .border-country {
         color: white;
         background-color: hsl(209, 23%, 22%);
     }
@@ -390,6 +396,7 @@ strong {
 .open-country {
     .header {
         min-height: 2rem;
+        height: 8vh;
         max-height: 4rem;
     }
 
@@ -410,7 +417,7 @@ strong {
     }
 
     .application {
-        margin-top: clamp(3rem, 30vh, 8rem);
+        margin-top: clamp(3rem, 10vh, 8rem);
         display: flex;
     }
 
@@ -419,6 +426,28 @@ strong {
     }
 }
 
+.countries {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    grid-template-columns: auto;
+}
+
+.border-countries {
+    margin-top: clamp(0rem, 2vh, 2rem);
+}
+
+.border-country {
+    display: flex;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    justify-content: center;
+    border-radius: 4px;
+    min-width: fit-content;
+    color: black;
+    margin: 0.5rem 0.5rem 0 0;
+}
 .opened-country {
     display: flex;
     flex-direction: column;
@@ -427,7 +456,11 @@ strong {
 }
 
 .card-description {
-    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items:start;
+    justify-content:left;
+    width: 48%;
 }
 
 .card-container {
@@ -439,9 +472,9 @@ strong {
 }
 
 .full-size-image {
-    object-fit: scale-down;
+    object-fit: fill;
     width: auto;
-    max-width: 45%;
+    max-width: 48%;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
     height: auto;
     max-height: 100%;
@@ -450,7 +483,7 @@ strong {
 .full-size-name {
     font-weight: 700;
     font-size: 32px;
-    margin: 0;
+    margin: clamp(0rem, 1vh, 2rem) 0;
 }
 
 .return-button {
@@ -460,7 +493,7 @@ strong {
     user-select: none;
     cursor: pointer;
     color: black;
-    margin-bottom: clamp(1rem, 20vh, 4rem);
+    margin-bottom: clamp(1rem, 3vh, 4rem);
     border-radius: 4px;
     height: clamp(2rem, 20vh, 2.5rem);
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
@@ -487,7 +520,6 @@ strong {
 
     .top-panel {
         height: clamp(2rem, 7vh, 4rem);
-
     }
 
     .control-panel {
@@ -507,6 +539,19 @@ strong {
 
     }
 
+    .open-country {
+        .application {
+            margin-top: clamp(3rem, 7vh, 6rem);
+        }
+        .header {
+            height: 5vh;
+        }
+        .return-button {
+            margin-bottom: clamp(1rem, 3vh, 4rem);
+
+        }
+    }
+
     .header-text {
         font-size: 14px;
     }
@@ -520,7 +565,7 @@ strong {
     }
 
     .application {
-        margin-top: clamp(8rem, 20vh, 16rem);
+        margin-top: clamp(2rem, 20vh, 16rem);
         row-gap: 2rem;
     }
 
@@ -530,16 +575,13 @@ strong {
     }
 
     .full-size-name {
-        margin-bottom: 1rem;
+        height: 3rem;
     }
 
-    .card-description {
-        min-height: 400rem;
-    }
 
     .parameters-container {
         flex-direction: column;
-        gap: 2rem;
+        gap: clamp(0rem, 2vh, 2rem);
     }
 
     .card-container {
@@ -551,6 +593,8 @@ strong {
     .card-description {
         min-height: 100%;
         height: 40%;
+        width: 90%;
+        max-width: 16rem;
     }
 
     .search-bar {
@@ -558,8 +602,7 @@ strong {
     }
 
     .full-size-image {
-        min-width: 20rem;
-        width: 100%;
-        max-width: 4rem;
+        width: 36vh;
+        max-width: 16rem;
     }
 }

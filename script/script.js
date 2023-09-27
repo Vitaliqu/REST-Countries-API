@@ -26,11 +26,12 @@ class CountryCard {
 }
 
 async function openCountry(countryImage) {
-    document.body.classList.add("open-country");
     const country = Array.from(await fetchData()).find(element => element.name.common === countryImage.parentElement.textContent.trim().split("\n")[0])
     const scrollPosition = window.scrollY
     const population = new Intl.NumberFormat("en").format(country.population);
+    const borderCountries = await fetchData().then(data => country.borders.map(element => element = data.find(cont => cont.cca3 === element).name.common))
 
+    document.body.classList.add("open-country");
     const openedCountry = document.createElement("div")
     openedCountry.className = "opened-country"
     openedCountry.innerHTML = `
@@ -47,7 +48,7 @@ async function openCountry(countryImage) {
                      Population: <strong>${population}</strong><br>
                      Region: <strong>${country.region}</strong><br>
                      Sub region: <strong>${country.subregion}</strong><br>
-                     Capital: <strong>${country.capital.join(", ")}</strong><br>
+                     Capital: <strong>${country.capital !== undefined ? country.capital.join(", ") : "none"}</strong><br>
                 </div>
                 <div class="right-parameters">
                      Top Level Domain: <strong>${country.tld}</strong><br>
@@ -55,12 +56,16 @@ async function openCountry(countryImage) {
                      Languages: <strong>${Object.values(country.languages).join(", ")}</strong><br>
                 </div>
             </div>
-            <div>
+            <div class="border-countries">
+                Border-countries:
+                <div class="countries"></div>
             </div>
         </div>
     </div>`
     box.appendChild(openedCountry);
-    console.log(Object.values(country.currencies)[0].name)
+    const borderCountry = document.createElement("div")
+    borderCountry.className = "border-country"
+    borderCountries.forEach(element => document.querySelector(".countries").innerHTML += `<p class="border-country">${element} </p>`)
     document.querySelector(".return-button").addEventListener("click", () => {
         box.removeChild(openedCountry);
         document.body.classList.remove("open-country");
