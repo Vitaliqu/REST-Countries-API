@@ -29,7 +29,7 @@ async function openCountry(countryImage) {
     const country = Array.from(await fetchData()).find(element => element.name.common === countryImage.parentElement.textContent.trim().split("\n")[0])
     const scrollPosition = window.scrollY
     const population = new Intl.NumberFormat("en").format(country.population);
-    const borderCountries = await fetchData().then(data => country.borders.map(element => element = data.find(cont => cont.cca3 === element).name.common))
+    const borderCountries = await fetchData().then(data => country.borders !== undefined ? country.borders.map(element => element = data.find(cont => cont.cca3 === element).name.common) : null)
 
     document.body.classList.add("open-country");
     const openedCountry = document.createElement("div")
@@ -65,7 +65,7 @@ async function openCountry(countryImage) {
     box.appendChild(openedCountry);
     const borderCountry = document.createElement("div")
     borderCountry.className = "border-country"
-    borderCountries.forEach(element => document.querySelector(".countries").innerHTML += `<p class="border-country">${element} </p>`)
+    borderCountries !== null ? borderCountries.forEach(element => document.querySelector(".countries").innerHTML += `<p class="border-country">${element} </p>`) : null;
     document.querySelector(".return-button").addEventListener("click", () => {
         box.removeChild(openedCountry);
         document.body.classList.remove("open-country");
