@@ -52,7 +52,7 @@ async function openCountry(countryImage) {
                 </div>
                 <div class="right-parameters">
                      Top Level Domain: <strong>${country.tld}</strong><br>
-                     Currencies: <strong>${Object.values(country.currencies)[0].name}</strong><br>
+                     Currencies: <strong>${country.currencies !== undefined ? Object.values(country.currencies)[0].name : "none"}</strong><br>
                      Languages: <strong>${Object.values(country.languages).join(", ")}</strong><br>
                 </div>
             </div>

@@ -1,0 +1,79 @@
+
+
+.dark-theme {
+    background: hsl(207, 26%, 17%);
+
+    .country-card {
+        background-color: hsl(209, 23%, 22%);
+        color: white;
+    }
+
+    .control-panel {
+        background-color: hsl(207, 26%, 17%);
+    }
+
+    .top-panel {
+        background-color: hsl(209, 23%, 22%);
+        color: white;
+    }
+
+    .return-button {
+        color: white;
+        background-color: hsl(209, 23%, 22%);
+    }
+
+    .border-country {
+        color: white;
+        background-color: hsl(209, 23%, 22%);
+    }
+
+    .search-container {
+        background-color: hsl(209, 23%, 22%);
+    }
+
+    .search-bar {
+        color: white;
+    }
+
+    .moon {
+        filter: invert(100%);
+    }
+
+    .card-description {
+        color: white;
+    }
+
+    .search-bar::placeholder {
+        color: white;
+    }
+
+    .arrow {
+        border-color: white;
+    }
+
+    .ico-mglass {
+        border-color: white;
+        background-color: hsl(209, 23%, 22%);
+
+        &:after {
+            background-color: white;
+        }
+    }
+
+    .dropdown-menu {
+        background-color: hsl(209, 23%, 22%);
+    }
+
+    .region:hover {
+        background-color: hsl(207, 26%, 12%);
+    }
+
+    .region-checked {
+        background-color: hsl(207, 26%, 12%);
+    }
+
+    .filter {
+        background-color: hsl(209, 23%, 22%);
+        color: white;
+    }
+}
